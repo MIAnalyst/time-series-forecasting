@@ -2,7 +2,9 @@
 
 This project focuses on **forecasting the next 24 hours of electricity usage** for **24 European Union countries** using advanced **deep learning techniques**. It is part of a portfolio demonstrating best practices in large-scale time series modeling and scalable ML pipelines.
 
-## 📈 Objective
+---
+
+## Objective
 
 > The goal is to build accurate and generalizable models that can forecast the hourly electricity load for each EU country over the next 24 hours, based on **past consumption**, **time-related features**, and **weather conditions**.
 
@@ -22,6 +24,8 @@ This project focuses on **forecasting the next 24 hours of electricity usage** f
         - `SolarRadiation`
         - `CloudCover`
 - **Geographic context:** `CountryCode` (embedded via learned vector)
+
+---
 
 ### Data Sources
 
@@ -52,7 +56,7 @@ The weather variables include:
 These variables were retrieved per country for the full range of dates covered in the electricity load dataset.
 
 ---
-#### 🗓️ Date Range
+#### Date Range
 The dataset covers the following period with **hourly resolution** (1-hour timestep):
 
 - **Start**: `2023-01-01 00:00:00`  
@@ -60,7 +64,7 @@ The dataset covers the following period with **hourly resolution** (1-hour times
 
 ---
 
-#### 🗺️ Included EU Countries
+#### Included EU Countries
 
 Weather and electricity load data were successfully collected for the following countries:
 
@@ -71,9 +75,7 @@ Some EU countries were excluded due to one or more of the following reasons:
 - The country had **substantial missing values**
 
 ---
-
-
-## 🧠 Approach
+## Approach
 
 The pipeline is structured into clear stages:
 
@@ -92,7 +94,7 @@ Projects/
 - **Modeling:** Model Benchmarking
 - **Evaluation:** MAE and RMSE reported per country and overall
 
-## 🧠 Modeling Approach
+## Modeling Approach
 
 Models implemented and compared include:
 - Baseline
@@ -116,14 +118,14 @@ A custom `DataWindow` class is used to generate consistent sliding windows of hi
 This setup aligns with the 24-hour ahead forecasting goal and allows batching across multiple countries with minimal leakage. The same structure is reused for training, validation, and test sets, and controls whether data is shuffled (e.g., during tuning) or not (e.g., during final evaluation).
 
 
-## 📊 Evaluation Metrics
+## Evaluation Metrics
 
 - **Mean Absolute Error (MAE)**
 - **Root Mean Squared Error (RMSE)**
 - Boxplots and error distribution plots per country
 - Best and worst prediction examples are highlighted
 
-## ✅ Assumptions
+## Assumptions
 
 - Although each country's electricity load is modeled independently, the deep learning model leverages shared temporal structures across countries—such as daily and weekly patterns—through a common architecture. While weather data is specific to each country, time-based patterns (like hour-of-day or day-of-week) and embeddings for country codes enable the model to generalize across similar temporal behaviors.
 - Hourly patterns are cyclical and are encoded using sine and cosine transforms for features like hour of day and day of week.
@@ -134,7 +136,7 @@ This setup aligns with the 24-hour ahead forecasting goal and allows batching ac
 - All country models are trained jointly using country embeddings, but inference is evaluated per country.
 - Target (Value) is assumed to be clean and continuous; extreme outliers (e.g., zero consumption) are not explicitly filtered out but implicitly handled by the model.
 
-## 🛠️ Tools Used
+## Tools Used
 
 - Python, Pandas, NumPy
 - Tensorflow Forecasting
@@ -143,7 +145,7 @@ This setup aligns with the 24-hour ahead forecasting goal and allows batching ac
 - VS Code, GitHub
 
 
-## 🚀 Future Work
+## Future Work
 
 - Add Data Center Consumption as regressor
 - Experiment with probabilistic forecasts and uncertainty quantification
